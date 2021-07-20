@@ -1,7 +1,7 @@
 # Task Tracker | React
 
 ## Description
-This is a React-based task tracking single-page-app. Users can add new tasks, view previously saved tasks, and delete tasks.
+This is a React-based task tracking single-page-app. Users can add new tasks, view previously saved tasks, and delete tasks. This app is from a tutorial by Traversy Media on YouTube.com
 
 ## Technologies Used
 - React.js
