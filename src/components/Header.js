@@ -1,18 +1,24 @@
 // import prop types
 import PropTypes from "prop-types";
 import Button from "./Button";
+// use location hook from react-router-dom to let you see the link you're on
+import { useLocation } from "react-router-dom";
 
 // can pass in props, but can also destructure them ({}) and use {title} rather than {props.title}
 const Header = ({ title, onAdd, showAdd }) => {
+  const location = useLocation();
+
   return (
     <header className="header">
       {/* can write css styling in-line */}
       <h1>{title}</h1>
-      <Button
-        color={showAdd ? "red" : "green"}
-        text={showAdd ? "Close" : "Add"}
-        onClick={onAdd}
-      />
+      {location.pathname === "/" && (
+        <Button
+          color={showAdd ? "red" : "green"}
+          text={showAdd ? "Close" : "Add"}
+          onClick={onAdd}
+        />
+      )}
     </header>
   );
 };
