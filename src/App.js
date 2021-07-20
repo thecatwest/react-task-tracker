@@ -24,11 +24,18 @@ function App() {
       day: "July 30th at 9:00am",
       reminder: false,
     },
-  ]);
+  ])
+
+  // delete task fn
+  const deleteTask = (id) => {
+    setTasks(tasks.filter((task) => task.id !== id))
+  }
+
   return (
     <div className="container">
       <Header />
-      <Tasks tasks={tasks} />
+      {/* pass in prop to delete tasks */}
+      {tasks.length > 0 ? <Tasks tasks={tasks} onDelete ={deleteTask} /> : 'No Tasks To Display'}
     </div>
   );
 }
