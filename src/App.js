@@ -5,6 +5,8 @@ import Tasks from "./components/Tasks";
 import AddTask from "./components/AddTask";
 
 function App() {
+  // fn to hide addTask section (set to false)
+  const [showAddTask, setShowAddTask] = useState(false)
   // by adding tasks fn in App.js, they become globally available rather than only in Tasks.js
   const [tasks, setTasks] = useState([
     {
@@ -52,8 +54,8 @@ function App() {
 
   return (
     <div className="container">
-      <Header />
-      <AddTask onAdd={addTask} />
+      <Header onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask} />
+      {showAddTask && <AddTask onAdd={addTask} />}
       {/* pass in prop to delete tasks */}
       {tasks.length > 0 ? <Tasks tasks={tasks} onDelete ={deleteTask} onToggle={toggleReminder}/> : 'No Tasks To Display'}
     </div>
