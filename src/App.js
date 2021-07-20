@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
+import AddTask from "./components/AddTask";
 
 function App() {
   // by adding tasks fn in App.js, they become globally available rather than only in Tasks.js
@@ -26,6 +27,18 @@ function App() {
     },
   ])
 
+  // add task
+  const addTask = (task) => {
+    // without a backend to generate id dynamically, can use simple fn to generate random id
+    const id = Math.floor(Math.random() * 10000) + 1
+
+    // create object with that id and then copy text, day, reminder using spread
+    const newTask  = { id, ...task }
+
+    // use setTasks as array, to copy the current tasks, and add newTask
+    setTasks([...tasks, newTask])
+  }
+
   // delete task fn
   const deleteTask = (id) => {
     setTasks(tasks.filter((task) => task.id !== id))
@@ -40,6 +53,7 @@ function App() {
   return (
     <div className="container">
       <Header />
+      <AddTask onAdd={addTask} />
       {/* pass in prop to delete tasks */}
       {tasks.length > 0 ? <Tasks tasks={tasks} onDelete ={deleteTask} onToggle={toggleReminder}/> : 'No Tasks To Display'}
     </div>
