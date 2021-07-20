@@ -1,5 +1,5 @@
 // use hook { useState }
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
 import AddTask from "./components/AddTask";
@@ -8,26 +8,27 @@ function App() {
   // fn to hide addTask section (set to false)
   const [showAddTask, setShowAddTask] = useState(false);
   // by adding tasks fn in App.js, they become globally available rather than only in Tasks.js
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      text: "Doctors Appointment",
-      day: "Jan 6th at 7:56am",
-      reminder: true,
-    },
-    {
-      id: 2,
-      text: "Parent-Teacher Conference",
-      day: "Aug 2nd at 5:00pm",
-      reminder: true,
-    },
-    {
-      id: 3,
-      text: "Preschool Open House",
-      day: "July 30th at 9:00am",
-      reminder: false,
-    },
-  ]);
+  const [tasks, setTasks] = useState([]);
+
+  useEffect (() => {
+    // async fn that calls fetchTasks, which returns a promise
+    const getTasks = async () => {
+      const tasksFromServer = await fetchTasks()
+      setTasks(tasksFromServer)
+    }
+
+    getTasks()
+    // add dependency array, if have a value that changes on run, you'd pass it here. W/o, pass in empty array
+  }, [])
+
+  // fetch tasks
+  const fetchTasks = async () => {
+    const res = await fetch('http://localhost:5000/tasks')
+    const data = await res.json()
+
+    // console.log(data);
+    return data
+  }
 
   // add task
   const addTask = (task) => {
@@ -42,7 +43,12 @@ function App() {
   };
 
   // delete task fn
-  const deleteTask = (id) => {
+  const deleteTask = async (id) => {
+    // make delete request
+    await fetch(`http://localhost:5000/tasks/${id}`, {
+      method: 'DELETE'
+    })
+
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
