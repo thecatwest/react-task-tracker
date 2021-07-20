@@ -12,7 +12,7 @@ This is a React-based task tracking single-page-app. Users can add new tasks, vi
 ## Website Link
 This app is deployed here:
 
-https://thecatwest.github.io/react--task-tracker/
+https://thecatwest.github.io/react-task-tracker/
 
 ## Screenshots
 Coming Soon
