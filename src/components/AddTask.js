@@ -7,22 +7,22 @@ const AddTask = ({ onAdd }) => {
 
   const onSubmit = (e) => {
     //   preventDefault() to prevent sending submit to another page
-    e.preventDefault()
+    e.preventDefault();
 
     // validate data input for task text
-    if(!text) {
-        alert('Please add task text')
-        return
+    if (!text) {
+      alert("Please add task text");
+      return;
     }
 
     // otherwise, call onAdd and pass in object w/ text, day, reminder
-    onAdd({ text, day, reminder })
+    onAdd({ text, day, reminder });
 
     // then, clear form on submit
-    setText('')
-    setDay('')
-    setReminder(false)
-  }
+    setText("");
+    setDay("");
+    setReminder(false);
+  };
 
   return (
     <form className="add-form" onSubmit={onSubmit}>
