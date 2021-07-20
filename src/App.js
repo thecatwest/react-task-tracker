@@ -31,11 +31,17 @@ function App() {
     setTasks(tasks.filter((task) => task.id !== id))
   }
 
+  // toggle reminder
+  const toggleReminder = (id) => {
+    // map through tasks, spread task properties, change reminder to the opposite of what it is with a double-click
+    setTasks(tasks.map((task) => task.id === id ? {  ...task, reminder: !task.reminder } : task))
+  }
+
   return (
     <div className="container">
       <Header />
       {/* pass in prop to delete tasks */}
-      {tasks.length > 0 ? <Tasks tasks={tasks} onDelete ={deleteTask} /> : 'No Tasks To Display'}
+      {tasks.length > 0 ? <Tasks tasks={tasks} onDelete ={deleteTask} onToggle={toggleReminder}/> : 'No Tasks To Display'}
     </div>
   );
 }
